@@ -13,7 +13,7 @@ setup(name='tap-github-stars',
       install_requires=[
           'singer-python==0.2.1',
           'backoff==1.3.2',
-          'requests==2.12.4',
+          'requests',
           'python-dateutil==2.6.0',
       ],
       entry_points='''

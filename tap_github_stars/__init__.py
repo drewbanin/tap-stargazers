@@ -85,6 +85,11 @@ def fetch_stars(config, page_number):
     headers = {'Accept': 'application/vnd.github.v3.star+json'}
     req = requests.get(query_url, headers=headers)
     resp = req.json()
+
+    # pluck user id out and store in top-level
+    for record in resp:
+        record['user_id'] = record['user']['id']
+
     return resp
 
 
@@ -104,7 +109,7 @@ def do_sync(args):
 
         new_records = fetch_stars(config, page_number)
 
-    singer.write_schema('stargazers', schemas.star, ['user.id'])
+    singer.write_schema('stargazers', schemas.star, ['user_id'])
     singer.write_records('stargazers', all_records)
 
 def main():
